@@ -62,13 +62,14 @@ class App extends React.Component {
 
   render () {
     console.log(this.state)
+    console.log()
     return (
       <>
         <Navbar />
   
-        <div className="progress m-4" style={{ height: '25px' }}>
-          <div className="progress-bar" role="progressbar" style={{ width: '98%' }}>0%</div>
-        </div>
+        {this.state.start && <div className="progress m-4" style={{ height: '25px' }}>
+          <div className="progress-bar" role="progressbar" style={{ width: `${(this.state.currentId / 11) * 100}%` }}>{((this.state.currentId / 11) * 100).toFixed(0)} %</div>
+        </div>}
   
         <div className="container mt-4">
   
@@ -81,7 +82,7 @@ class App extends React.Component {
           </div>) : (
             <div className="card" style={{ width: '100%' }}>
               <div className="card-body">
-                <h5 className="card-title">1. Dalam 4 minggu terakhir, seberapa sering kamu tiba-tiba merasa lelah?</h5>
+                  <h5 className="card-title">{this.state.questions.filter(question => question.id === this.state.currentId)[0].question}</h5>
                 <div className="m-3 text-center">
                   Tidak Pernah
                   <input type="radio" className="mx-3" name="value" value={1}></input>

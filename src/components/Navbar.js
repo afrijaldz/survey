@@ -3,7 +3,7 @@ import React from 'react'
 function Navbar () {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a className="navbar-brand" href="#">Survei</a>
+      <a className="navbar-brand" href="#">Survey Kesehatan Mental</a>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
