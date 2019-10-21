@@ -53,22 +53,49 @@ class App extends React.Component {
     score: 0,
     currentId: 1,
     showResult: false,
+    danger: false,
   }
   
   handleSubmit = e => {
     e.preventDefault()
-    if (this.state.currentId < 11) {
+
+    if (e.target.value.value === "") {
       this.setState({
-        currentId: this.state.currentId + 1, //(this.state.currentId === 11 ? 0 : 1),
-        score: this.state.score + Number(e.target.value.value),
+        danger: true,
       })
     } else {
-      this.setState({
-        score: this.state.score + Number(e.target.value.value),
-        showResult: true,
-      })
+      if (this.state.currentId < 11) {
+        this.setState({
+          currentId: this.state.currentId + 1, //(this.state.currentId === 11 ? 0 : 1),
+          score: this.state.score + Number(e.target.value.value),
+          danger: false,
+        })
+      } else {
+        this.setState({
+          score: this.state.score + Number(e.target.value.value),
+          showResult: true,
+          danger: false,
+        })
+      }
     }
     e.target.reset()
+  }
+
+  getResult = () => {
+    const score = Number((this.state.score / 55) * 100)
+    
+    if (score <= 30) {
+      return "Kamu baik - baik saja dan kesehatan mentalmu tidak bermasalah."
+    }
+
+    if (score > 30 && score <= 60) {
+      return "kamu sedang ada tanda - tanda masalah psikologis"
+    }
+
+    if (score > 60 && score <= 100) {
+      return "kamu memiliki gejala masalah psikologis yang berat"
+    }
+    
   }
 
   render () {
@@ -76,6 +103,10 @@ class App extends React.Component {
     return (
       <>
         <Navbar />
+
+        {this.state.danger && <div className="alert alert-danger" role="alert">
+          Masukkan nilai kesehatanmu
+        </div>}
   
         {this.state.start && <div className="progress m-4" style={{ height: '25px' }}>
           <div className="progress-bar" role="progressbar" style={{ width: `${(this.state.currentId / 11) * 100}%` }}>{((this.state.currentId / 11) * 100).toFixed(0)} %</div>
@@ -118,7 +149,7 @@ class App extends React.Component {
           {this.state.showResult && <div className="card" style={{ width: '100%' }}>
             <div className="card-body text-center">
               <h5 className="card-title">Skor kesehatan mental kamu adalah {this.state.score}</h5>
-              <p className="card-text">Kamu baik-baik saja dan kesehatan mentalmu tidak bermasalah, kamu sedang ada tanda-tanda masalah psikologis, kamu memiliki gejala masalah psikologis yang berat</p>
+              <p className="card-text">{this.getResult()}</p>
             </div>
           </div>}
           
