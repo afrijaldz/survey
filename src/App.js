@@ -52,17 +52,27 @@ class App extends React.Component {
     ],
     score: 0,
     currentId: 1,
+    showResult: false,
   }
-
-  handleNextId = () => {
+  
+  handleSubmit = e => {
+    e.preventDefault()
     if (this.state.currentId < 11) {
-      this.setState({ currentId: this.state.currentId + 1 })
+      this.setState({
+        currentId: this.state.currentId + 1, //(this.state.currentId === 11 ? 0 : 1),
+        score: this.state.score + Number(e.target.value.value),
+      })
+    } else {
+      this.setState({
+        score: this.state.score + Number(e.target.value.value),
+        showResult: true,
+      })
     }
+    e.target.reset()
   }
 
   render () {
     console.log(this.state)
-    console.log()
     return (
       <>
         <Navbar />
@@ -73,31 +83,44 @@ class App extends React.Component {
   
         <div className="container mt-4">
   
-          {!this.state.start ? (<div className="jumbotron">
-            <h1 className="display-4 text-center">Yuk Cek Kondisi Kesehatan Mentalmu!</h1>
-            <hr className="my-4" />
-              <p className="lead text-center">
-              <button className="btn btn-primary btn-lg" onClick={() => this.setState({ start: true })}>Mulai <i className="fa fa-arrow-right"></i></button>
-              </p>
-          </div>) : (
+          {!this.state.start ? (
+            <div className="jumbotron">
+              <h1 className="display-4 text-center">Yuk Cek Kondisi Kesehatan Mentalmu!</h1>
+              <hr className="my-4" />
+                <p className="lead text-center">
+                <button className="btn btn-primary btn-lg" onClick={() => this.setState({ start: true })}>Mulai <i className="fa fa-arrow-right"></i></button>
+                </p>
+            </div>
+          ) : (!this.state.showResult &&
             <div className="card" style={{ width: '100%' }}>
               <div className="card-body">
-                  <h5 className="card-title">{this.state.questions.filter(question => question.id === this.state.currentId)[0].question}</h5>
-                <div className="m-3 text-center">
-                  Tidak Pernah
-                  <input type="radio" className="mx-3" name="value" value={1}></input>
-                  <input type="radio" className="mx-3" name="value" value={2}></input>
-                  <input type="radio" className="mx-3" name="value" value={3}></input>
-                  <input type="radio" className="mx-3" name="value" value={4}></input>
-                  <input type="radio" className="mx-3" name="value" value={5}></input>
-                  Selalu
-                </div>
-                <div className="text-center">
-                  <button onClick={this.handleNextId} className="btn btn-primary">Selanjutnya</button>
-                </div>
+                <form onSubmit={this.handleSubmit}>
+                  <h5 className="card-title">
+                    {this.state.questions.filter(question => question.id === this.state.currentId)[0].question}
+                  </h5>
+                  <div className="m-3 text-center">
+                    Tidak Pernah
+                      <input type="radio" className="mx-3" name="value" value={1}></input>
+                      <input type="radio" className="mx-3" name="value" value={2}></input>
+                      <input type="radio" className="mx-3" name="value" value={3}></input>
+                      <input type="radio" className="mx-3" name="value" value={4}></input>
+                      <input type="radio" className="mx-3" name="value" value={5}></input>
+                    Selalu
+                  </div>
+                  <div className="text-center">
+                    <button className="btn btn-primary">Selanjutnya</button>
+                  </div>
+                </form>
               </div>
             </div>
           )}
+
+          {this.state.showResult && <div className="card" style={{ width: '100%' }}>
+            <div className="card-body text-center">
+              <h5 className="card-title">Skor kesehatan mental kamu adalah {this.state.score}</h5>
+              <p className="card-text">Kamu baik-baik saja dan kesehatan mentalmu tidak bermasalah, kamu sedang ada tanda-tanda masalah psikologis, kamu memiliki gejala masalah psikologis yang berat</p>
+            </div>
+          </div>}
           
         </div>
       </>
