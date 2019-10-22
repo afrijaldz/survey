@@ -161,7 +161,7 @@ class App extends React.Component {
 
                   {this.state.showResult && <div className="card" style={{ width: '100%' }}>
                     <div className="card-body text-center">
-                      <h5 className="card-title">Skor kesehatan mental kamu adalah {this.state.score}</h5>
+                      <h5 className="card-title">Halo {this.state.user.nickname}, Skor kesehatan mental kamu adalah {this.state.score}</h5>
                       <p className="card-text">{this.getResult()}</p>
                     </div>
                   </div>}
