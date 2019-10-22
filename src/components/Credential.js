@@ -43,7 +43,7 @@ class Credential extends React.Component {
   handleStart = e => {
     e.preventDefault()
     localStorage.setItem('survey:user', JSON.stringify(this.state))
-    this.forceUpdate()
+    this.props.handler()
   }
 
   render() {
