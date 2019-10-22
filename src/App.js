@@ -130,13 +130,15 @@ class App extends React.Component {
                     {this.state.questions.filter(question => question.id === this.state.currentId)[0].question}
                   </h5>
                   <div className="m-3 text-center">
-                    Tidak Pernah
                       <input type="radio" className="mx-3" name="value" value={1}></input>
                       <input type="radio" className="mx-3" name="value" value={2}></input>
                       <input type="radio" className="mx-3" name="value" value={3}></input>
                       <input type="radio" className="mx-3" name="value" value={4}></input>
                       <input type="radio" className="mx-3" name="value" value={5}></input>
-                    Selalu
+                    <div className="d-flex justify-content-between">
+                      <div>Tidak Pernah</div>
+                      <div>Sering</div>
+                    </div>
                   </div>
                   <div className="text-center">
                     <button className="btn btn-primary">Selanjutnya</button>
