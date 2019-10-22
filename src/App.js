@@ -1,5 +1,6 @@
 import React from 'react'
 import Navbar from './components/Navbar'
+import Credential from './components/Credential'
 
 class App extends React.Component {
   state = {
@@ -102,7 +103,8 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <>
-        <Navbar />
+        <Credential />
+        {/* <Navbar />
 
         {this.state.danger && <div className="alert alert-danger" role="alert">
           Masukkan nilai kesehatanmu
@@ -155,7 +157,7 @@ class App extends React.Component {
             </div>
           </div>}
           
-        </div>
+        </div> */}
       </>
     )
   }
