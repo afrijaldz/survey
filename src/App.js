@@ -55,6 +55,17 @@ class App extends React.Component {
     currentId: 1,
     showResult: false,
     danger: false,
+    user: null,
+  }
+
+  componentDidMount() {
+    const user = JSON.parse(localStorage.getItem('survey:user'))
+    console.log(user)
+    if (user) {
+      this.setState({
+        user
+      })
+    }
   }
   
   handleSubmit = e => {
@@ -103,12 +114,12 @@ class App extends React.Component {
     console.log(this.state)
     return (
       <>
-        <Credential />
-        {/* <Navbar />
-
-        {this.state.danger && <div className="alert alert-danger" role="alert">
-          Masukkan nilai kesehatanmu
-        </div>}
+        <Navbar />
+        {this.state.user ? (
+          <>
+          {this.state.danger && <div className="alert alert-danger" role="alert">
+            Masukkan nilai kesehatanmu
+          </div>}
   
         {this.state.start && <div className="progress m-4" style={{ height: '25px' }}>
           <div className="progress-bar" role="progressbar" style={{ width: `${(this.state.currentId / 11) * 100}%` }}>{((this.state.currentId / 11) * 100).toFixed(0)} %</div>
@@ -157,7 +168,9 @@ class App extends React.Component {
             </div>
           </div>}
           
-        </div> */}
+        </div>
+        </>
+        ): (<Credential />)}
       </>
     )
   }
